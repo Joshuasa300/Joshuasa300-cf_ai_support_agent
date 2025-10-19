@@ -3,7 +3,7 @@ export interface Env {
   SUPPORT_SESSION: any; // DurableObjectNamespace
   ESCALATION_QUEUE: any; // DurableObjectNamespace
   SUPPORT_KV?: any; // KVNamespace (optional for initial deployment)
-  SUPPORT_FILES: any; // R2Bucket
+  SUPPORT_FILES?: any; // R2Bucket (optional for initial deployment)
   ENVIRONMENT: string;
   MAX_CONVERSATION_LENGTH: string;
   ESCALATION_THRESHOLD: string;

@@ -1,4 +1,4 @@
-name = "cf-ai-support-agent"
+name = "deploy"
 main = "src/index.ts"
 compatibility_date = "2024-10-15"
 compatibility_flags = ["nodejs_compat"]
@@ -29,7 +29,8 @@ ESCALATION_THRESHOLD = "3"
 # id = "your-kv-namespace-id"
 # preview_id = "your-preview-kv-namespace-id"
 
-[[r2_buckets]]
-binding = "SUPPORT_FILES"
-bucket_name = "support-files"
-preview_bucket_name = "support-files-preview"
+# R2 bucket configuration - commented out until bucket is created
+# [[r2_buckets]]
+# binding = "SUPPORT_FILES"
+# bucket_name = "support-files"
+# preview_bucket_name = "support-files-preview"
