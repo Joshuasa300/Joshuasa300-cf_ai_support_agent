@@ -2,7 +2,7 @@ export interface Env {
   AI: any; // Cloudflare AI binding
   SUPPORT_SESSION: any; // DurableObjectNamespace
   ESCALATION_QUEUE: any; // DurableObjectNamespace
-  SUPPORT_KV: any; // KVNamespace
+  SUPPORT_KV?: any; // KVNamespace (optional for initial deployment)
   SUPPORT_FILES: any; // R2Bucket
   ENVIRONMENT: string;
   MAX_CONVERSATION_LENGTH: string;

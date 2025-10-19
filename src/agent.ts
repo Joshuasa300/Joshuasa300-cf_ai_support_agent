@@ -183,8 +183,14 @@ export class SupportAgent {
   }
 
   async updateKnowledgeBase(entry: KnowledgeBaseEntry): Promise<void> {
-    // Store in KV for persistence
-    await this.env.SUPPORT_KV.put(`kb_${entry.id}`, JSON.stringify(entry));
+    try {
+      // Store in KV for persistence (if available)
+      if (this.env.SUPPORT_KV) {
+        await this.env.SUPPORT_KV.put(`kb_${entry.id}`, JSON.stringify(entry));
+      }
+    } catch (error) {
+      console.error('Error storing in KV (using local cache only):', error);
+    }
     
     // Update local cache
     const existingIndex = this.knowledgeBase.findIndex(e => e.id === entry.id);
@@ -197,18 +203,24 @@ export class SupportAgent {
 
   async loadKnowledgeBase(): Promise<void> {
     try {
-      const keys = await this.env.SUPPORT_KV.list({ prefix: 'kb_' });
-      const entries = await Promise.all(
-        keys.keys.map(async (key: any) => {
-          const data = await this.env.SUPPORT_KV.get(key.name);
-          return data ? JSON.parse(data) : null;
-        })
-      );
-      
-      this.knowledgeBase = entries.filter(Boolean);
+      // Load from KV if available, otherwise use default knowledge base
+      if (this.env.SUPPORT_KV) {
+        const keys = await this.env.SUPPORT_KV.list({ prefix: 'kb_' });
+        const entries = await Promise.all(
+          keys.keys.map(async (key: any) => {
+            const data = await this.env.SUPPORT_KV.get(key.name);
+            return data ? JSON.parse(data) : null;
+          })
+        );
+        
+        const loadedEntries = entries.filter(Boolean);
+        if (loadedEntries.length > 0) {
+          this.knowledgeBase = loadedEntries;
+        }
+      }
     } catch (error) {
-      // Log error (console available in Workers runtime)
-      console.error('Error loading knowledge base:', error);
+      // Log error and continue with default knowledge base
+      console.error('Error loading knowledge base from KV (using defaults):', error);
     }
   }
 }

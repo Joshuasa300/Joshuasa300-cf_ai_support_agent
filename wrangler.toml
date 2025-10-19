@@ -23,10 +23,11 @@ ENVIRONMENT = "development"
 MAX_CONVERSATION_LENGTH = "50"
 ESCALATION_THRESHOLD = "3"
 
-[[kv_namespaces]]
-binding = "SUPPORT_KV"
-id = "your-kv-namespace-id"
-preview_id = "your-preview-kv-namespace-id"
+# KV namespace will be created after initial deployment
+# [[kv_namespaces]]
+# binding = "SUPPORT_KV"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
 
 [[r2_buckets]]
 binding = "SUPPORT_FILES"
