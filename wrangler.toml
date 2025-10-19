@@ -1,0 +1,34 @@
+name = "cf-ai-support-agent"
+main = "src/index.ts"
+compatibility_date = "2024-10-15"
+compatibility_flags = ["nodejs_compat"]
+
+[ai]
+binding = "AI"
+
+[[durable_objects.bindings]]
+name = "SUPPORT_SESSION"
+class_name = "SupportSession"
+
+[[durable_objects.bindings]]
+name = "ESCALATION_QUEUE"
+class_name = "EscalationQueue"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["SupportSession", "EscalationQueue"]
+
+[vars]
+ENVIRONMENT = "development"
+MAX_CONVERSATION_LENGTH = "50"
+ESCALATION_THRESHOLD = "3"
+
+[[kv_namespaces]]
+binding = "SUPPORT_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+[[r2_buckets]]
+binding = "SUPPORT_FILES"
+bucket_name = "support-files"
+preview_bucket_name = "support-files-preview"

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Support - CF Support Agent</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-robot"></i>
+                        <h2>AI Customer Support</h2>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot online"></span>
+                        <span id="connectionStatus">Online</span>
+                    </div>
+                </div>
+                <p class="subtitle">How can I help you today?</p>
+            </div>
+            
+            <div class="chat-messages" id="messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="typing-text">AI is thinking...</span>
+            </div>
+            
+            <div class="chat-status" id="status">
+                <i class="fas fa-circle text-success"></i>
+                Ready to help
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500" />
+                    <div class="input-actions">
+                        <button id="voiceButton" class="voice-btn" title="Voice input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="sendButton" onclick="sendMessage()" class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count">
+                        <span id="charCount">0</span>/500
+                    </span>
+                    <span class="powered-by">
+                        Powered by <strong>Cloudflare AI</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Voice Recording Modal -->
+        <div id="voiceModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Voice Input</h3>
+                    <button class="close-btn" onclick="closeVoiceModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="voice-visualizer">
+                        <div class="pulse-ring"></div>
+                        <div class="microphone-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                    <p id="voiceStatus">Click the microphone to start recording</p>
+                    <div class="voice-controls">
+                        <button id="startRecording" class="voice-control-btn start">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button id="stopRecording" class="voice-control-btn stop" disabled>
+                            <i class="fas fa-stop"></i> Stop
+                        </button>
+                        <button id="cancelRecording" class="voice-control-btn cancel">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Escalation Notice -->
+        <div id="escalationNotice" class="escalation-notice" style="display: none;">
+            <div class="notice-content">
+                <i class="fas fa-user-headset"></i>
+                <div class="notice-text">
+                    <strong>Escalated to Human Agent</strong>
+                    <p>Your conversation has been transferred to a human agent who will assist you shortly.</p>
+                </div>
+                <button class="notice-close" onclick="closeEscalationNotice()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
